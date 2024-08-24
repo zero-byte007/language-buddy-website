@@ -1,4 +1,3 @@
 def process_input(user_input):
-    result = "Hey"
-    return result
+    return f"Answer to : {user_input}"
 
