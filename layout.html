@@ -4,61 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Buddy AI</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 50px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        p {
-            color: #666;
-            line-height: 1.6;
-        }
-        .chat-container {
-            max-width: 600px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .chat-container .chat {
-            list-style-type: none;
-            margin: 0;
-            padding: 10px;
-        }
-        .chat-container .chat .user-message {
-            background-color: #e6e6e6;
-            border-radius: 5px;
-            padding: 5px 10px;
-            margin-bottom: 5px;
-            max-width: 70%;
-            word-wrap: break-word;
-        }
-        .chat-container .chat .ai-message {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            padding: 5px 10px;
-            margin-bottom: 5px;
-            max-width: 70%;
-            word-wrap: break-word;
-            float: right;
-        }
-    </style>
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.8.2/core.css">
     <script type="module" src="https://pyscript.net/releases/2024.8.2/core.js"></script>
 </head>
@@ -74,8 +19,10 @@
         </div>
     </div>
 
-    <py-script src="edit.py"></py-script>
-
+    <py-script>
+        def process_input(user_input):
+            return f"Answer to : {user_input}"
+    </py-script>
 
     <script>
         async function sendMessage() {
@@ -86,7 +33,7 @@
             var userMessage = '<li class="user-message">' + userInput + '</li>';
             chatBox.innerHTML += userMessage;
 
-            // Call the Python function from edit.py
+            // Call the Python function
             const response = await pyodide.runPythonAsync(`process_input("${userInput}")`);
             
             // Display the AI response
@@ -99,3 +46,4 @@
     </script>
 </body>
 </html>
+
