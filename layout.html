@@ -59,6 +59,8 @@
             float: right;
         }
     </style>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.8.2/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.8.2/core.js"></script>
 </head>
 <body>
     <div class="container">
@@ -72,14 +74,25 @@
         </div>
     </div>
 
+        <py-script src="edit.py"></py-script>
+
     <script>
-        function sendMessage() {
+        async function sendMessage() {
             var userInput = document.getElementById('user-input').value;
             if (userInput.trim() === '') return;
+
             var chatBox = document.getElementById('chat-box');
             var userMessage = '<li class="user-message">' + userInput + '</li>';
-            var aiMessage = '<li class="ai-message">AI: Sorry, I am just a demo AI. I cannot respond.</li>';
-            chatBox.innerHTML += userMessage + aiMessage;
+            chatBox.innerHTML += userMessage;
+
+            // Call the Python function from edit.py
+            const response = await pyodide.runPythonAsync(`process_input("${userInput}")`);
+            
+            // Display the AI response
+            var aiMessage = '<li class="ai-message">' + response + '</li>';
+            chatBox.innerHTML += aiMessage;
+            
+            // Clear the input box
             document.getElementById('user-input').value = '';
         }
     </script>
